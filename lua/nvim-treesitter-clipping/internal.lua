@@ -41,6 +41,8 @@ local function merge_clip_group(clip_group)
     return lst
 end
 
+local get_query = vim.treesitter.query.get or vim.treesitter.get_query
+
 ---partedit 可能な箇所のリストを返す。
 ---partedit 可能な箇所は query にマッチする箇所として判定する。具体的には
 ---`@clip`: partedit 可能な node をキャプチャする
@@ -56,7 +58,7 @@ local function get_code_ranges(bufnr)
     local lang = tsparser:lang()
     local tree = tsparser:parse()[1]
 
-    local query = vim.treesitter.get_query(lang, "clipping")
+    local query = get_query(lang, "clipping")
     if query == nil then
         return {}
     end
